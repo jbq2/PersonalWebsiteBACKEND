@@ -5,14 +5,14 @@ import com.personalwebsite.personalwebsite.pojo.Project;
 import java.util.Collection;
 
 public interface ServiceInterface<T> {
-    Project save(T t);
+    T save(T t);
 
-    Collection<Project> list();
+    Collection<T> list();
 
-    Project get(Long id);
+    T get(Long id);
 
-    Project update(T t);
+    T update(T t);
 
-    Project delete(Long id);
+    Boolean delete(Long id);
 
 }

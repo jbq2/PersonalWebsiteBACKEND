@@ -41,11 +41,11 @@ public class ProjectService implements ServiceInterface<Project> {
     }
 
     @Override
-    public Project delete(Long id) {
+    public Boolean delete(Long id) {
         return projectDao.delete(id);
     }
 
-    public Project deleteByName(String name) {
+    public Boolean deleteByName(String name) {
         return projectDao.deleteByName(name);
     }
 }

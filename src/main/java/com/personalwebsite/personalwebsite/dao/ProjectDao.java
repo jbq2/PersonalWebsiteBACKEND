@@ -111,22 +111,23 @@ public class ProjectDao implements DaoInterface<Project> {
     }
 
     @Override
-    public Project delete(Long id) {
-        Project project = findById(id);
+    public Boolean delete(Long id) {
         String sql =
                 "DELETE FROM PROJECTS " +
                 "WHERE p_id = ?";
-        jdbcTemplate.update(sql, id);
-        return project;
+        int affectedRows = jdbcTemplate.update(sql, id);
+
+        return affectedRows == 1;
     }
 
-    public Project deleteByName(String name) {
+    public Boolean deleteByName(String name) {
         Project project = findByName(name);
         String sql =
                 "DELETE FROM PROJECTS " +
                 "WHERE p_name = ?";
-        jdbcTemplate.update(sql, name);
-        return project;
+        int affectedRows = jdbcTemplate.update(sql, name);
+
+        return affectedRows == 1;
     }
 
     public Project findByName(String name) {

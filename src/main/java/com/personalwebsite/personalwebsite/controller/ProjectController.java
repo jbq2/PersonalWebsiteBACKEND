@@ -110,11 +110,12 @@ public class ProjectController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Response> deleteProject(@PathVariable("id") Long id){
-        Project project = projectService.delete(id);
-        if(project != null){
+        Boolean isDeleted = projectService.delete(id);
+
+        if(isDeleted){
             return ResponseEntity.ok(Response.builder()
                     .timeStamp(now())
-                    .data(Map.of("deleted", project))
+                    .data(Map.of("isDeleted", true))
                     .message("Project deleted.")
                     .status(HttpStatus.OK)
                     .statusCode(HttpStatus.OK.value())
@@ -124,6 +125,7 @@ public class ProjectController {
 
         return ResponseEntity.ok(Response.builder()
                 .timeStamp(now())
+                .data(Map.of("isDeleted", false))
                 .message("Project with id " + id + " does not exist.")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
@@ -133,12 +135,12 @@ public class ProjectController {
 
     @DeleteMapping("/deleteByName/{name}")
     public ResponseEntity<Response> deleteProjectByName(@PathVariable("name") String name){
-        Project project = projectService.deleteByName(name);
+        Boolean isDeleted = projectService.deleteByName(name);
 
-        if(project != null){
+        if(isDeleted){
             return ResponseEntity.ok(Response.builder()
                     .timeStamp(now())
-                    .data(Map.of("deleted", project))
+                    .data(Map.of("isDeleted", true))
                     .message("Project deleted.")
                     .status(HttpStatus.OK)
                     .statusCode(HttpStatus.OK.value())
@@ -148,6 +150,7 @@ public class ProjectController {
 
         return ResponseEntity.ok(Response.builder()
                 .timeStamp(now())
+                .data(Map.of("isDeleted", false))
                 .message("Project with name " + name + " does not exist.")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
