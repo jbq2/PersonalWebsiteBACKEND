@@ -11,5 +11,5 @@ public interface DaoInterface <E>{
 
     E update(E e);
 
-    E delete(Long id);
+    Boolean delete(Long id);
 }
