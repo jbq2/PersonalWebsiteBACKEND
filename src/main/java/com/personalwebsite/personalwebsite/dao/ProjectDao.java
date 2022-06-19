@@ -19,34 +19,34 @@ public class ProjectDao implements DaoInterface<Project> {
 
     RowMapper<Project> rowMapper = ((rs, rowNum) -> {
         Project project = new Project();
-        project.setId(rs.getLong("p_id"));
-        project.setName(rs.getString("p_name"));
-        project.setDescription(rs.getString("p_description"));
-        project.setCourse(rs.getString("p_course"));
-        project.setStartdate(rs.getDate("p_startdate").toString());
+        project.setId(rs.getLong("id"));
+        project.setName(rs.getString("name"));
+        project.setDescription(rs.getString("description"));
+        project.setCourse(rs.getString("course"));
+        project.setStartdate(rs.getDate("startdate").toString());
         try{
-            project.setEnddate(rs.getDate("p_enddate").toString());
+            project.setEnddate(rs.getDate("enddate").toString());
         }
         catch(NullPointerException e){
             project.setEnddate(null);
         }
-        project.setUrl(rs.getString("p_url"));
+        project.setUrl(rs.getString("url"));
         return project;
     });
 
     @Override
     public List<Project> findAll() {
         String sql =
-                "SELECT * FROM PROJECTS " +
-                "ORDER BY P_ID";
+                "SELECT * FROM localdb.projects " +
+                "ORDER BY id";
         return jdbcTemplate.query(sql, rowMapper);
     }
 
     @Override
     public Project findById(Long id) {
         String sql =
-                "SELECT * FROM PROJECTS " +
-                "WHERE p_id = ?";
+                "SELECT * FROM localdb.projects " +
+                "WHERE id = ?";
         try{
             return jdbcTemplate.queryForObject(sql, rowMapper, id);
         }
@@ -58,7 +58,7 @@ public class ProjectDao implements DaoInterface<Project> {
     @Override
     public Project save(Project project) {
         String sql =
-                "INSERT INTO PROJECTS (p_id, p_name, p_description, p_course, p_url, p_startdate, p_enddate) " +
+                "INSERT INTO localdb.projects (id, name, description, p_course, p_url, p_startdate, p_enddate) " +
                 "VALUES (projects_seq.nextval, ?, ?, ?, ?, ?, ?)";
         Date startDate = Date.valueOf(project.getStartdate());
         Date endDate = null;
