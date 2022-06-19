@@ -31,10 +31,6 @@ public class ProjectService implements ServiceInterface<Project> {
         return projectDao.findById(id);
     }
 
-    public Project getByName(String name) {
-        return projectDao.findByName(name);
-    }
-
     @Override
     public Project update(Project project) {
         return projectDao.update(project);
@@ -43,9 +39,5 @@ public class ProjectService implements ServiceInterface<Project> {
     @Override
     public Boolean delete(Long id) {
         return projectDao.delete(id);
-    }
-
-    public Boolean deleteByName(String name) {
-        return projectDao.deleteByName(name);
     }
 }

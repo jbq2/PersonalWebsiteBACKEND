@@ -59,29 +59,6 @@ public class ProjectController {
         );
     }
 
-    @GetMapping("/getByName/{name}")
-    public ResponseEntity<Response> getProjectByName(@PathVariable("name") String name){
-        Project project = projectService.getByName(name);
-
-        if(project != null){
-            return ResponseEntity.ok(Response.builder()
-                    .timeStamp(now())
-                    .data(Map.of("project", project))
-                    .message("Project fetched.")
-                    .status(HttpStatus.OK)
-                    .statusCode(HttpStatus.OK.value())
-                    .build()
-            );
-        }
-
-        return ResponseEntity.ok(Response.builder()
-                .timeStamp(now())
-                .message("Project with name '" + name + "' does not exist.")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build()
-        );
-    }
 
     @PostMapping("/save")
     public ResponseEntity<Response> saveProject(@RequestBody Project project){
@@ -133,28 +110,4 @@ public class ProjectController {
         );
     }
 
-    @DeleteMapping("/deleteByName/{name}")
-    public ResponseEntity<Response> deleteProjectByName(@PathVariable("name") String name){
-        Boolean isDeleted = projectService.deleteByName(name);
-
-        if(isDeleted){
-            return ResponseEntity.ok(Response.builder()
-                    .timeStamp(now())
-                    .data(Map.of("isDeleted", true))
-                    .message("Project deleted.")
-                    .status(HttpStatus.OK)
-                    .statusCode(HttpStatus.OK.value())
-                    .build()
-            );
-        }
-
-        return ResponseEntity.ok(Response.builder()
-                .timeStamp(now())
-                .data(Map.of("isDeleted", false))
-                .message("Project with name " + name + " does not exist.")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build()
-        );
-    }
 }
