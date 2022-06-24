@@ -3,6 +3,7 @@ package com.personalwebsite.personalwebsite.dao;
 import com.personalwebsite.personalwebsite.pojo.Course;
 import com.personalwebsite.personalwebsite.pojo.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,12 @@ public class CourseDao implements DaoInterface<Course> {
         String sql =
                 "SELECT * FROM localdb.COURSES " +
                 "WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, rowMapper, id);
+        try{
+            return jdbcTemplate.queryForObject(sql, rowMapper, id);
+        }
+        catch(EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     @Override

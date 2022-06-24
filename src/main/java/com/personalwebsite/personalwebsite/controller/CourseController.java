@@ -6,10 +6,7 @@ import com.personalwebsite.personalwebsite.service.implementations.CourseService
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -37,13 +34,73 @@ public class CourseController {
         );
     }
 
+    @GetMapping("/get/{id}")
     public ResponseEntity<CustomResponse> getCourse(@PathVariable("id") Long id){
         Course course = courseService.get(id);
 
+        if(course != null){
+            return ResponseEntity.ok(CustomResponse.builder()
+                    .timeStamp(now())
+                    .data(Map.of("course", course))
+                    .message("Course fetched.")
+                    .status(HttpStatus.OK)
+                    .statusCode(HttpStatus.OK.value())
+                    .build()
+            );
+        }
+
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
-                .data(Map.of("course", course))
-                .message("Course fetched.")
+                .message("Course with id " + id.toString() + " does not exist.")
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .build()
+        );
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<CustomResponse> saveCourse(@RequestBody Course course){
+        return ResponseEntity.ok(CustomResponse.builder()
+                .timeStamp(now())
+                .data(Map.of("courses", courseService.save(course)))
+                .message("Course save.")
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .build()
+        );
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<CustomResponse> updateCourse(@RequestBody Course course){
+        return ResponseEntity.ok(CustomResponse.builder()
+                .timeStamp(now())
+                .data(Map.of("courses", courseService.update(course)))
+                .message("Course updated.")
+                .status(HttpStatus.OK)
+                .statusCode(HttpStatus.OK.value())
+                .build()
+        );
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<CustomResponse> deleteCourse(@PathVariable("id") Long id){
+        Boolean isDeleted = courseService.delete(id);
+
+        if(isDeleted){
+            return ResponseEntity.ok(CustomResponse.builder()
+                    .timeStamp(now())
+                    .data(Map.of("isDeleted", true))
+                    .message("Course deleted.")
+                    .status(HttpStatus.OK)
+                    .statusCode(HttpStatus.OK.value())
+                    .build()
+            );
+        }
+
+        return ResponseEntity.ok(CustomResponse.builder()
+                .timeStamp(now())
+                .data(Map.of("isDeleted", false))
+                .message("Project with id " + id + " does not exist.")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
                 .build()
