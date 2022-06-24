@@ -1,13 +1,11 @@
 package com.personalwebsite.personalwebsite.controller;
 
 import com.personalwebsite.personalwebsite.pojo.Project;
-import com.personalwebsite.personalwebsite.pojo.Response;
+import com.personalwebsite.personalwebsite.pojo.CustomResponse;
 import com.personalwebsite.personalwebsite.service.implementations.ProjectService;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +21,9 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @GetMapping("/list")
-    public ResponseEntity<Response> listProjects(){
+    public ResponseEntity<CustomResponse> listProjects(){
         List<Project> projectList = projectService.list();
-        return ResponseEntity.ok(Response.builder()
+        return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
                 .data(Map.of("projects", projectList))
                 .message("Projects fetched.")
@@ -36,11 +34,11 @@ public class ProjectController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Response> getProject(@PathVariable("id") Long id){
+    public ResponseEntity<CustomResponse> getProject(@PathVariable("id") Long id){
         Project project = projectService.get(id);
 
         if(project != null){
-            return ResponseEntity.ok(Response.builder()
+            return ResponseEntity.ok(CustomResponse.builder()
                     .timeStamp(now())
                     .data(Map.of("project", project))
                     .message("Project fetched.")
@@ -50,7 +48,7 @@ public class ProjectController {
             );
         }
 
-        return ResponseEntity.ok(Response.builder()
+        return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
                 .message("Project with id " + id.toString() + " does not exist.")
                 .status(HttpStatus.OK)
@@ -61,8 +59,8 @@ public class ProjectController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<Response> saveProject(@RequestBody Project project){
-        return ResponseEntity.ok(Response.builder()
+    public ResponseEntity<CustomResponse> saveProject(@RequestBody Project project){
+        return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
                 .data(Map.of("saved", projectService.save(project)))
                 .message("Project saved.")
@@ -74,8 +72,8 @@ public class ProjectController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Response> updateProject(@RequestBody Project project){
-        return ResponseEntity.ok(Response.builder()
+    public ResponseEntity<CustomResponse> updateProject(@RequestBody Project project){
+        return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
                 .data(Map.of("updated", projectService.update(project)))
                 .message("Project updated.")
@@ -86,11 +84,11 @@ public class ProjectController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Response> deleteProject(@PathVariable("id") Long id){
+    public ResponseEntity<CustomResponse> deleteProject(@PathVariable("id") Long id){
         Boolean isDeleted = projectService.delete(id);
 
         if(isDeleted){
-            return ResponseEntity.ok(Response.builder()
+            return ResponseEntity.ok(CustomResponse.builder()
                     .timeStamp(now())
                     .data(Map.of("isDeleted", true))
                     .message("Project deleted.")
@@ -100,7 +98,7 @@ public class ProjectController {
             );
         }
 
-        return ResponseEntity.ok(Response.builder()
+        return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
                 .data(Map.of("isDeleted", false))
                 .message("Project with id " + id + " does not exist.")

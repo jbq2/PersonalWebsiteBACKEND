@@ -17,4 +17,5 @@ public class Project {
     private String startdate;
     private String enddate;
     private String url;
+    private String servedurl;
 }
