@@ -11,7 +11,7 @@ import java.util.Map;
 @Data
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Response {
+public class CustomResponse {
     protected LocalDateTime timeStamp;
     protected int statusCode;
     protected HttpStatus status;

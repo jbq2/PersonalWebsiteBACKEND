@@ -31,6 +31,7 @@ public class ProjectDao implements DaoInterface<Project> {
             project.setEnddate(null);
         }
         project.setUrl(rs.getString("url"));
+        project.setServedurl(rs.getString("servedurl"));
         return project;
     });
 
@@ -58,8 +59,8 @@ public class ProjectDao implements DaoInterface<Project> {
     @Override
     public Project save(Project project) {
         String sql =
-                "INSERT INTO localdb.projects (name, description, course, startdate, enddate, url) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                "INSERT INTO localdb.projects (name, description, course, startdate, enddate, url, servedurl) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
         Date startDate = Date.valueOf(project.getStartdate());
         Date endDate = null;
 
@@ -73,7 +74,8 @@ public class ProjectDao implements DaoInterface<Project> {
                 project.getCourse(),
                 startDate,
                 endDate,
-                project.getUrl()
+                project.getUrl(),
+                project.getServedurl()
         );
 
         sql =
@@ -88,7 +90,7 @@ public class ProjectDao implements DaoInterface<Project> {
     public Project update(Project project) {
         String sql =
                 "UPDATE localdb.projects " +
-                "SET name = ?, description = ?, course = ?, url = ?, startdate = ?, enddate = ? " +
+                "SET name = ?, description = ?, course = ?, url = ?, startdate = ?, enddate = ?, servedurl = ?" +
                 "WHERE id = ?";
         Date startDate = Date.valueOf(project.getStartdate());
         Date endDate = null;
@@ -104,6 +106,7 @@ public class ProjectDao implements DaoInterface<Project> {
                 project.getUrl(),
                 startDate,
                 endDate,
+                project.getServedurl(),
                 project.getId()
         );
 

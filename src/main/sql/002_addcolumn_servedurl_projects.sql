@@ -1,0 +1,2 @@
+ALTER TABLE localdb.PROJECTS
+ADD servedurl VARCHAR(255);
