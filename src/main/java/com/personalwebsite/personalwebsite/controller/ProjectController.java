@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class ProjectController {
     @GetMapping("/list")
     public ResponseEntity<CustomResponse> listProjects(){
         List<Project> projectList = projectService.list();
+
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
                 .data(Map.of("projects", projectList))

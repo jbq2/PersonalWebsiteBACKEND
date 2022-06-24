@@ -5,9 +5,12 @@ import com.personalwebsite.personalwebsite.pojo.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
+@Component
 public class CourseDao implements DaoInterface<Course> {
 
     @Autowired
@@ -15,6 +18,7 @@ public class CourseDao implements DaoInterface<Course> {
 
     RowMapper<Course> rowMapper = ((rs, rowNum) -> {
         Course course = new Course();
+        course.setId(rs.getLong("id"));
         course.setCode(rs.getString("code"));
         course.setTitle(rs.getString("title"));
 
@@ -22,28 +26,59 @@ public class CourseDao implements DaoInterface<Course> {
     });
 
     @Override
-    public Collection<Course> findAll() {
-        String sql = "SELECT * FROM localdb.COURSES";
+    public List<Course> findAll() {
+        String sql =
+                "SELECT * FROM localdb.COURSES";
         return jdbcTemplate.query(sql, rowMapper);
     }
 
     @Override
     public Course findById(Long id) {
-        return null;
+        String sql =
+                "SELECT * FROM localdb.COURSES " +
+                "WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, rowMapper, id);
     }
 
     @Override
     public Course save(Course course) {
-        return null;
+        String sql = "INSERT INTO localdb.COURSES (code, title)" +
+                "VALUES (?, ?)";
+
+        jdbcTemplate.update(sql,
+                course.getCode(),
+                course.getTitle()
+        );
+
+        sql =
+                "SELECT * FROM localdb.COURSES " +
+                "ORDER BY id DESC " +
+                "LIMIT 1";
+
+        return jdbcTemplate.queryForObject(sql, rowMapper);
     }
 
     @Override
     public Course update(Course course) {
-        return null;
+        String sql = "UPDATE localdb.COURSES " +
+                "SET code = ?, title = ? " +
+                "WHERE id = ?";
+
+        jdbcTemplate.update(sql,
+                course.getCode(),
+                course.getTitle(),
+                course.getId()
+        );
+
+        return course;
     }
 
     @Override
     public Boolean delete(Long id) {
-        return null;
+        String sql = "DELETE FROM localdb.COURSES " +
+                "WHERE id = ?";
+        int affectedRows = jdbcTemplate.update(sql, id);
+
+        return affectedRows == 1;
     }
 }
