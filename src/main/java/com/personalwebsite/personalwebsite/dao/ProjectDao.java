@@ -104,9 +104,9 @@ public class ProjectDao implements DaoInterface<Project> {
                 project.getDescription(),
                 project.getCourse(),
                 project.getUrl(),
-                project.getServedurl(),
                 startDate,
                 endDate,
+                project.getServedurl(),
                 project.getId()
         );
 
