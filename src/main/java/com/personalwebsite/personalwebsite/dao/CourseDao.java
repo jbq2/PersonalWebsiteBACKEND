@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +23,13 @@ public class CourseDao implements DaoInterface<Course> {
         course.setId(rs.getLong("id"));
         course.setCode(rs.getString("code"));
         course.setTitle(rs.getString("title"));
+        course.setStartdate(rs.getDate("startdate").toString());
+        try{
+            course.setEnddate(rs.getDate("enddate").toString());
+        }
+        catch(NullPointerException e){
+            course.setEnddate(null);
+        }
 
         return course;
     });
@@ -48,12 +56,20 @@ public class CourseDao implements DaoInterface<Course> {
 
     @Override
     public Course save(Course course) {
-        String sql = "INSERT INTO localdb.COURSES (code, title)" +
-                "VALUES (?, ?)";
+        String sql = "INSERT INTO localdb.COURSES (code, title, startdate, enddate)" +
+                "VALUES (?, ?, ?, ?)";
+        Date startDate = Date.valueOf(course.getStartdate());
+        Date endDate = null;
+
+        if(course.getEnddate() != null){
+            endDate = Date.valueOf(course.getEnddate());
+        }
 
         jdbcTemplate.update(sql,
                 course.getCode(),
-                course.getTitle()
+                course.getTitle(),
+                startDate,
+                endDate
         );
 
         sql =
@@ -67,12 +83,21 @@ public class CourseDao implements DaoInterface<Course> {
     @Override
     public Course update(Course course) {
         String sql = "UPDATE localdb.COURSES " +
-                "SET code = ?, title = ? " +
+                "SET code = ?, title = ?, startdate = ?, enddate = ? " +
                 "WHERE id = ?";
+
+        Date startDate = Date.valueOf(course.getStartdate());
+        Date endDate = null;
+
+        if(course.getEnddate() != null){
+            endDate = Date.valueOf(course.getEnddate());
+        }
 
         jdbcTemplate.update(sql,
                 course.getCode(),
                 course.getTitle(),
+                startDate,
+                endDate,
                 course.getId()
         );
 
