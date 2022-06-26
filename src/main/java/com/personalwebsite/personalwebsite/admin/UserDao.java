@@ -30,8 +30,30 @@ public class UserDao implements DaoInterface<User> {
         return user;
     });
 
+    public User findByUsername(String username){
+        String sql = "SELECT * FROM localdb.users " +
+                "WHERE username = ?";
+        try{
+            return jdbcTemplate.queryForObject(sql, rowMapper, username);
+        }
+        catch(EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
+    public User findByEmail(String email){
+        String sql = "SELECT * FROM localdb.users " +
+                "WHERE email = ?";
+        try{
+            return jdbcTemplate.queryForObject(sql, rowMapper, email);
+        }
+        catch(EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
     @Override
-    public List<User> findAll() {
+    public Collection<User> findAll() {
         String sql =
                 "SELECT * FROM localdb.users " +
                 "ORDER BY id";

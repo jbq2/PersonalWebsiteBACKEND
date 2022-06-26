@@ -34,7 +34,7 @@ public class CourseDao implements DaoInterface<Course> {
     });
 
     @Override
-    public List<Course> findAll() {
+    public Collection<Course> findAll() {
         String sql =
                 "SELECT * FROM localdb.COURSES " +
                 "ORDER BY startdate DESC";

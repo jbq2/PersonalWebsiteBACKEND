@@ -45,7 +45,7 @@ public class ProjectDao implements DaoInterface<Project> {
     });
 
     @Override
-    public List<Project> findAll() {
+    public Collection<Project> findAll() {
         String sql =
                 "SELECT * FROM localdb.projects " +
                 "ORDER BY startdate DESC";
