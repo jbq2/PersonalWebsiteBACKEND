@@ -7,15 +7,12 @@ import lombok.NoArgsConstructor;
 import java.sql.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Project {
+@NoArgsConstructor
+public class Course {
     private Long id;
-    private String name;
-    private String description;
-    private Long course_id;
+    private String code;
+    private String title;
     private String startdate;
     private String enddate;
-    private String url;
-    private String servedurl;
 }

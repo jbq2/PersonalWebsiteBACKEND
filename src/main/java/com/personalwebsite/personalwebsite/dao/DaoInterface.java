@@ -1,5 +1,6 @@
 package com.personalwebsite.personalwebsite.dao;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 
 public interface DaoInterface <E>{
@@ -7,7 +8,7 @@ public interface DaoInterface <E>{
 
     E findById(Long id);
 
-    E save(E e);
+    E save(E e) throws SQLIntegrityConstraintViolationException;
 
     E update(E e);
 
