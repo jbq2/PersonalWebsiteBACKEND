@@ -14,7 +14,6 @@ public class Project {
     private String name;
     private String description;
     private Long course_id;
-    //TODO change type of project column 'course' to INT, and assign it to the id of courses table
     private String startdate;
     private String enddate;
     private String url;
