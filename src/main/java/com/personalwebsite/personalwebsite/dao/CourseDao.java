@@ -1,7 +1,6 @@
 package com.personalwebsite.personalwebsite.dao;
 
 import com.personalwebsite.personalwebsite.pojo.Course;
-import com.personalwebsite.personalwebsite.pojo.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -65,7 +64,6 @@ public class CourseDao implements DaoInterface<Course> {
         if(course.getEnddate() != null){
             endDate = Date.valueOf(course.getEnddate());
         }
-
 
         jdbcTemplate.update(sql,
                 course.getCode(),

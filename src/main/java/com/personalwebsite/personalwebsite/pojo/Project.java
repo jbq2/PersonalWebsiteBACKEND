@@ -10,10 +10,10 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Project {
-    private long id;
+    private Long id;
     private String name;
     private String description;
-    private String course;
+    private Long course_id;
     //TODO change type of project column 'course' to INT, and assign it to the id of courses table
     private String startdate;
     private String enddate;

@@ -25,7 +25,13 @@ public class ProjectDao implements DaoInterface<Project> {
         project.setId(rs.getLong("id"));
         project.setName(rs.getString("name"));
         project.setDescription(rs.getString("description"));
-        project.setCourse(rs.getString("course"));
+        long course_id = rs.getLong("course_id");
+        if(course_id != 0){
+            project.setCourse_id(course_id);
+        }
+        else{
+            project.setCourse_id(null);
+        }
         project.setStartdate(rs.getDate("startdate").toString());
         try{
             project.setEnddate(rs.getDate("enddate").toString());
@@ -62,7 +68,7 @@ public class ProjectDao implements DaoInterface<Project> {
     @Override
     public Project save(Project project) {
         String sql =
-                "INSERT INTO localdb.projects (name, description, course, startdate, enddate, url, servedurl) " +
+                "INSERT INTO localdb.projects (name, description, course_id, startdate, enddate, url, servedurl) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
         Date startDate = Date.valueOf(project.getStartdate());
         Date endDate = null;
@@ -75,7 +81,7 @@ public class ProjectDao implements DaoInterface<Project> {
             jdbcTemplate.update(sql,
                     project.getName(),
                     project.getDescription(),
-                    project.getCourse(),
+                    project.getCourse_id(),
                     startDate,
                     endDate,
                     project.getUrl(),
@@ -99,7 +105,7 @@ public class ProjectDao implements DaoInterface<Project> {
     public Project update(Project project){
         String sql =
                 "UPDATE localdb.projects " +
-                "SET name = ?, description = ?, course = ?, url = ?, startdate = ?, enddate = ?, servedurl = ? " +
+                "SET name = ?, description = ?, course_id = ?, url = ?, startdate = ?, enddate = ?, servedurl = ? " +
                 "WHERE id = ?";
         Date startDate = Date.valueOf(project.getStartdate());
         Date endDate = null;
@@ -112,7 +118,7 @@ public class ProjectDao implements DaoInterface<Project> {
             jdbcTemplate.update(sql,
                     project.getName(),
                     project.getDescription(),
-                    project.getCourse(),
+                    project.getCourse_id(),
                     project.getUrl(),
                     startDate,
                     endDate,
