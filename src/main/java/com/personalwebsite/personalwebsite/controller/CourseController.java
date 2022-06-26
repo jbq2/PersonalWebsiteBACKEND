@@ -62,7 +62,7 @@ public class CourseController {
     public ResponseEntity<CustomResponse> saveCourse(@RequestBody Course course){
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
-                .data(Map.of("courses", courseService.save(course)))
+                .data(Map.of("course", courseService.save(course)))
                 .message("Course save.")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
@@ -74,7 +74,7 @@ public class CourseController {
     public ResponseEntity<CustomResponse> updateCourse(@RequestBody Course course){
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
-                .data(Map.of("courses", courseService.update(course)))
+                .data(Map.of("course", courseService.update(course)))
                 .message("Course updated.")
                 .status(HttpStatus.OK)
                 .statusCode(HttpStatus.OK.value())
