@@ -42,7 +42,7 @@ public class ProjectDao implements DaoInterface<Project> {
     public List<Project> findAll() {
         String sql =
                 "SELECT * FROM localdb.projects " +
-                "ORDER BY id";
+                "ORDER BY startdate DESC";
         return jdbcTemplate.query(sql, rowMapper);
     }
 
