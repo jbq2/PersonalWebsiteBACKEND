@@ -1,0 +1,5 @@
+ALTER TABLE localdb.projects
+ADD FOREIGN KEY (course) REFERENCES localdb.courses(code)
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+

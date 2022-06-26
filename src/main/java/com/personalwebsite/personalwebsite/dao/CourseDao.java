@@ -65,6 +65,7 @@ public class CourseDao implements DaoInterface<Course> {
             endDate = Date.valueOf(course.getEnddate());
         }
 
+
         jdbcTemplate.update(sql,
                 course.getCode(),
                 course.getTitle(),

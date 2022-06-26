@@ -2,11 +2,14 @@ package com.personalwebsite.personalwebsite.dao;
 
 import com.personalwebsite.personalwebsite.pojo.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.sql.Date;
 import java.util.List;
@@ -68,29 +71,35 @@ public class ProjectDao implements DaoInterface<Project> {
             endDate = Date.valueOf(project.getEnddate());
         }
 
-        jdbcTemplate.update(sql,
-                project.getName(),
-                project.getDescription(),
-                project.getCourse(),
-                startDate,
-                endDate,
-                project.getUrl(),
-                project.getServedurl()
-        );
+        try{
+            jdbcTemplate.update(sql,
+                    project.getName(),
+                    project.getDescription(),
+                    project.getCourse(),
+                    startDate,
+                    endDate,
+                    project.getUrl(),
+                    project.getServedurl()
+            );
 
-        sql =
-            "SELECT * FROM localdb.projects " +
-            "ORDER BY id DESC " +
-            "LIMIT 1";
+            sql =
+                    "SELECT * FROM localdb.projects " +
+                            "ORDER BY id DESC " +
+                            "LIMIT 1";
 
-        return jdbcTemplate.queryForObject(sql, rowMapper);
+            return jdbcTemplate.queryForObject(sql, rowMapper);
+        }
+        catch(DataAccessException e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 
     @Override
-    public Project update(Project project) {
+    public Project update(Project project){
         String sql =
                 "UPDATE localdb.projects " +
-                "SET name = ?, description = ?, course = ?, url = ?, startdate = ?, enddate = ?, servedurl = ?" +
+                "SET name = ?, description = ?, course = ?, url = ?, startdate = ?, enddate = ?, servedurl = ? " +
                 "WHERE id = ?";
         Date startDate = Date.valueOf(project.getStartdate());
         Date endDate = null;
@@ -99,18 +108,25 @@ public class ProjectDao implements DaoInterface<Project> {
             endDate = Date.valueOf(project.getEnddate());
         }
 
-        jdbcTemplate.update(sql,
-                project.getName(),
-                project.getDescription(),
-                project.getCourse(),
-                project.getUrl(),
-                startDate,
-                endDate,
-                project.getServedurl(),
-                project.getId()
-        );
+        try{
+            jdbcTemplate.update(sql,
+                    project.getName(),
+                    project.getDescription(),
+                    project.getCourse(),
+                    project.getUrl(),
+                    startDate,
+                    endDate,
+                    project.getServedurl(),
+                    project.getId()
+            );
 
-        return project;
+            return project;
+        }
+        catch(DataAccessException e){
+            System.out.println(e.toString());
+            return null;
+        }
+
     }
 
     @Override

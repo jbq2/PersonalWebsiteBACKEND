@@ -62,27 +62,54 @@ public class ProjectController {
 
     @PostMapping("/save")
     public ResponseEntity<CustomResponse> saveProject(@RequestBody Project project){
-        return ResponseEntity.ok(CustomResponse.builder()
-                .timeStamp(now())
-                .data(Map.of("saved", projectService.save(project)))
-                .message("Project saved.")
-                .developerMessage("Ignore id field in data section")
-                .status(HttpStatus.CREATED)
-                .statusCode(HttpStatus.CREATED.value())
-                .build()
-        );
+        Project savedProject = projectService.save(project);
+
+        if(savedProject != null){
+            return ResponseEntity.ok(CustomResponse.builder()
+                    .timeStamp(now())
+                    .data(Map.of("saved", savedProject))
+                    .message("Project saved.")
+                    .status(HttpStatus.CREATED)
+                    .statusCode(HttpStatus.CREATED.value())
+                    .build()
+            );
+        }
+        else{
+            return ResponseEntity.ok(CustomResponse.builder()
+                    .timeStamp(now())
+                    .message("No project saved, likely due to integrity constraints.")
+                    .developerMessage("Check for primary or foreign key integrity constraint violation, or SQL syntax errors.")
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .statusCode(HttpStatus.EXPECTATION_FAILED.value())
+                    .build()
+            );
+        }
     }
 
     @PostMapping("/update")
     public ResponseEntity<CustomResponse> updateProject(@RequestBody Project project){
-        return ResponseEntity.ok(CustomResponse.builder()
-                .timeStamp(now())
-                .data(Map.of("updated", projectService.update(project)))
-                .message("Project updated.")
-                .status(HttpStatus.OK)
-                .statusCode(HttpStatus.OK.value())
-                .build()
-        );
+        Project updatedProject = projectService.update(project);
+
+        if(updatedProject != null){
+            return ResponseEntity.ok(CustomResponse.builder()
+                    .timeStamp(now())
+                    .data(Map.of("updated", updatedProject))
+                    .message("Project updated.")
+                    .status(HttpStatus.OK)
+                    .statusCode(HttpStatus.OK.value())
+                    .build()
+            );
+        }
+        else{
+            return ResponseEntity.ok(CustomResponse.builder()
+                    .timeStamp(now())
+                    .message("Project not updated, likely due to integrity constraints.")
+                    .developerMessage("Check for primary or foreign key integrity constraint violation, or SQL syntax errors.")
+                    .status(HttpStatus.EXPECTATION_FAILED)
+                    .statusCode(HttpStatus.EXPECTATION_FAILED.value())
+                    .build()
+            );
+        }
     }
 
     @DeleteMapping("/delete/{id}")
