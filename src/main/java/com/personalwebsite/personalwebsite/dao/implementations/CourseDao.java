@@ -1,5 +1,6 @@
-package com.personalwebsite.personalwebsite.dao;
+package com.personalwebsite.personalwebsite.dao.implementations;
 
+import com.personalwebsite.personalwebsite.dao.DaoInterface;
 import com.personalwebsite.personalwebsite.pojo.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

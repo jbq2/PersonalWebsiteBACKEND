@@ -1,7 +1,6 @@
 package com.personalwebsite.personalwebsite.service.implementations;
 
-import com.personalwebsite.personalwebsite.dao.CourseDao;
-import com.personalwebsite.personalwebsite.dao.DaoInterface;
+import com.personalwebsite.personalwebsite.dao.implementations.CourseDao;
 import com.personalwebsite.personalwebsite.pojo.Course;
 import com.personalwebsite.personalwebsite.service.ServiceInterface;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 @Transactional
