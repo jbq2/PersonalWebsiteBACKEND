@@ -61,7 +61,7 @@ public class CourseController {
         );
     }
 
-    @PostMapping("/save")
+    @PostMapping("/secure/save")
     public ResponseEntity<CustomResponse> saveCourse(@RequestBody Course course) throws SQLIntegrityConstraintViolationException {
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
@@ -73,7 +73,7 @@ public class CourseController {
         );
     }
 
-    @PostMapping("/update")
+    @PostMapping("/secure/update")
     public ResponseEntity<CustomResponse> updateCourse(@RequestBody Course course) throws SQLIntegrityConstraintViolationException {
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
@@ -85,7 +85,7 @@ public class CourseController {
         );
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/secure/delete/{id}")
     public ResponseEntity<CustomResponse> deleteCourse(@PathVariable("id") Long id){
         Boolean isDeleted = courseService.delete(id);
 

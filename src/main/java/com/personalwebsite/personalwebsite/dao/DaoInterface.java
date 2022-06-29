@@ -4,6 +4,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 
 public interface DaoInterface <E>{
+
     Collection<E> findAll();
 
     E findById(Long id);
