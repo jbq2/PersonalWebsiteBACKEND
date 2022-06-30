@@ -2,6 +2,7 @@ package com.personalwebsite.personalwebsite.admin.user.dao;
 
 import com.personalwebsite.personalwebsite.admin.user.pojo.User;
 import com.personalwebsite.personalwebsite.admin.user.pojo.UserHasRole;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
