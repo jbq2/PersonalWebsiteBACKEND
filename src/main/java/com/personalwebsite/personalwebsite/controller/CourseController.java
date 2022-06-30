@@ -2,7 +2,6 @@ package com.personalwebsite.personalwebsite.controller;
 
 import com.personalwebsite.personalwebsite.pojo.Course;
 import com.personalwebsite.personalwebsite.pojo.CustomResponse;
-import com.personalwebsite.personalwebsite.service.ServiceInterface;
 import com.personalwebsite.personalwebsite.service.implementations.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import static java.time.LocalDateTime.now;
@@ -61,7 +59,7 @@ public class CourseController {
         );
     }
 
-    @PostMapping("/secure/save")
+    @PostMapping("/save")
     public ResponseEntity<CustomResponse> saveCourse(@RequestBody Course course) throws SQLIntegrityConstraintViolationException {
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
@@ -73,7 +71,7 @@ public class CourseController {
         );
     }
 
-    @PostMapping("/secure/update")
+    @PostMapping("/update")
     public ResponseEntity<CustomResponse> updateCourse(@RequestBody Course course) throws SQLIntegrityConstraintViolationException {
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
@@ -85,7 +83,7 @@ public class CourseController {
         );
     }
 
-    @DeleteMapping("/secure/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<CustomResponse> deleteCourse(@PathVariable("id") Long id){
         Boolean isDeleted = courseService.delete(id);
 

@@ -62,7 +62,7 @@ public class ProjectController {
     }
 
 
-    @PostMapping("/secure/save")
+    @PostMapping("/save")
     public ResponseEntity<CustomResponse> saveProject(@RequestBody Project project) throws SQLIntegrityConstraintViolationException {
         Project savedProject = projectService.save(project);
 
@@ -88,7 +88,7 @@ public class ProjectController {
         }
     }
 
-    @PostMapping("/secure/update")
+    @PostMapping("/update")
     public ResponseEntity<CustomResponse> updateProject(@RequestBody Project project) throws SQLIntegrityConstraintViolationException {
         Project updatedProject = projectService.update(project);
 
@@ -114,7 +114,7 @@ public class ProjectController {
         }
     }
 
-    @DeleteMapping("/secure/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<CustomResponse> deleteProject(@PathVariable("id") Long id){
         Boolean isDeleted = projectService.delete(id);
 
