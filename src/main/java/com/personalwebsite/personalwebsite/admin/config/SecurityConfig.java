@@ -31,5 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .httpBasic();
+
+        //TODO: authenticate only certain paths
     }
 }
