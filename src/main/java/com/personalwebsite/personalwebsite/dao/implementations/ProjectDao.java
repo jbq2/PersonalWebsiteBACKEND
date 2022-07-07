@@ -1,5 +1,6 @@
-package com.personalwebsite.personalwebsite.dao;
+package com.personalwebsite.personalwebsite.dao.implementations;
 
+import com.personalwebsite.personalwebsite.dao.DaoInterface;
 import com.personalwebsite.personalwebsite.pojo.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -45,7 +46,7 @@ public class ProjectDao implements DaoInterface<Project> {
     });
 
     @Override
-    public List<Project> findAll() {
+    public Collection<Project> findAll() {
         String sql =
                 "SELECT * FROM localdb.projects " +
                 "ORDER BY startdate DESC";

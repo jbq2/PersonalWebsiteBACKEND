@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Collection;
 import java.util.Map;
 
 import static java.time.LocalDateTime.now;
@@ -22,7 +23,7 @@ public class CourseController {
 
     @GetMapping("/list")
     public ResponseEntity<CustomResponse> listCourses(){
-        List<Course> courseList = courseService.list();
+        Collection<Course> courseList = courseService.list();
 
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
@@ -59,7 +60,7 @@ public class CourseController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<CustomResponse> saveCourse(@RequestBody Course course){
+    public ResponseEntity<CustomResponse> saveCourse(@RequestBody Course course) throws SQLIntegrityConstraintViolationException {
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
                 .data(Map.of("course", courseService.save(course)))
@@ -71,7 +72,7 @@ public class CourseController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<CustomResponse> updateCourse(@RequestBody Course course){
+    public ResponseEntity<CustomResponse> updateCourse(@RequestBody Course course) throws SQLIntegrityConstraintViolationException {
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
                 .data(Map.of("course", courseService.update(course)))

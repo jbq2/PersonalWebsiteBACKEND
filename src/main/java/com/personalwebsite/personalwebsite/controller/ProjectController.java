@@ -2,12 +2,14 @@ package com.personalwebsite.personalwebsite.controller;
 
 import com.personalwebsite.personalwebsite.pojo.Project;
 import com.personalwebsite.personalwebsite.pojo.CustomResponse;
+import com.personalwebsite.personalwebsite.service.ServiceInterface;
 import com.personalwebsite.personalwebsite.service.implementations.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class ProjectController {
 
     @GetMapping("/list")
     public ResponseEntity<CustomResponse> listProjects(){
-        List<Project> projectList = projectService.list();
+        Collection<Project> projectList = projectService.list();
 
         return ResponseEntity.ok(CustomResponse.builder()
                 .timeStamp(now())
@@ -61,7 +63,7 @@ public class ProjectController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<CustomResponse> saveProject(@RequestBody Project project){
+    public ResponseEntity<CustomResponse> saveProject(@RequestBody Project project) throws SQLIntegrityConstraintViolationException {
         Project savedProject = projectService.save(project);
 
         if(savedProject != null){
@@ -87,7 +89,7 @@ public class ProjectController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<CustomResponse> updateProject(@RequestBody Project project){
+    public ResponseEntity<CustomResponse> updateProject(@RequestBody Project project) throws SQLIntegrityConstraintViolationException {
         Project updatedProject = projectService.update(project);
 
         if(updatedProject != null){

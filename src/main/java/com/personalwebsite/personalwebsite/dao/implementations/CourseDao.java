@@ -1,5 +1,6 @@
-package com.personalwebsite.personalwebsite.dao;
+package com.personalwebsite.personalwebsite.dao.implementations;
 
+import com.personalwebsite.personalwebsite.dao.DaoInterface;
 import com.personalwebsite.personalwebsite.pojo.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,7 +35,7 @@ public class CourseDao implements DaoInterface<Course> {
     });
 
     @Override
-    public List<Course> findAll() {
+    public Collection<Course> findAll() {
         String sql =
                 "SELECT * FROM localdb.COURSES " +
                 "ORDER BY startdate DESC";

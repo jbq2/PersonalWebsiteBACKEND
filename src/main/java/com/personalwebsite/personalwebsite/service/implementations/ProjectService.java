@@ -1,14 +1,14 @@
 package com.personalwebsite.personalwebsite.service.implementations;
 
-import com.personalwebsite.personalwebsite.dao.ProjectDao;
+import com.personalwebsite.personalwebsite.dao.implementations.ProjectDao;
 import com.personalwebsite.personalwebsite.pojo.Project;
 import com.personalwebsite.personalwebsite.service.ServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 @Transactional
@@ -18,12 +18,12 @@ public class ProjectService implements ServiceInterface<Project> {
     private final ProjectDao projectDao;
 
     @Override
-    public Project save(Project project) {
+    public Project save(Project project) throws SQLIntegrityConstraintViolationException {
         return projectDao.save(project);
     }
 
     @Override
-    public List<Project> list() {
+    public Collection<Project> list() {
         return projectDao.findAll();
     }
 
