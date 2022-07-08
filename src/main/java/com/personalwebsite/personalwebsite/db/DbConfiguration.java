@@ -7,6 +7,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 public class DbConfiguration {
+    //TODO issue stated here about driver class name
+        //TODO might have to remove this configuration since it might be unnecessary
     @Value("${spring.datasource.driver-class-name}")
     String driverClassName;
     @Value("${spring.datasource.url}")

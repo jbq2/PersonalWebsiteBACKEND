@@ -17,7 +17,7 @@ public class CourseDao implements DaoInterface<Course> {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    //TODO autowiring causes build issues
     RowMapper<Course> rowMapper = ((rs, rowNum) -> {
         Course course = new Course();
         course.setId(rs.getLong("id"));
