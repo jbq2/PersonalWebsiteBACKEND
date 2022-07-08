@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,28 +22,20 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
-public class SecurityConfig {
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-//    private final UserDetailsService userDetailsService;
-//
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-//    }
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+//                .antMatchers("/projects/list", "/projects/get/*",
+//                        "/courses/list", "/courses/get/*").permitAll()
+//                .anyRequest()
+//                .authenticated()
+                .antMatchers("/admin/**", "/**/save", "/**/delete/*", "/**/update")
+                .authenticated()
+                .and()
+                .httpBasic();
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.authorizeHttpRequests((authorizations) -> authorizations
-                .antMatchers(
-                        "/admin/**",
-
-                        "/**/save",
-                        "/**/update",
-                        "/**/delete/*"
-                        ).authenticated())
-                .httpBasic(withDefaults());
-
-        return http.build();
+        //TODO: authenticate only certain paths
     }
 }
