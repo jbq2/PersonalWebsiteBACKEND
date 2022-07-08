@@ -26,9 +26,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-            .antMatchers("/admin", "/**/save", "/**/update", "/**/delete/*").authenticated()
-            .and()
-            .httpBasic();
+                .authorizeRequests()
+//                .antMatchers("/projects/list", "/projects/get/*",
+//                        "/courses/list", "/courses/get/*").permitAll()
+//                .anyRequest()
+//                .authenticated()
+                .antMatchers("/admin/**", "/**/save", "/**/delete/*", "/**/update")
+                .authenticated()
+                .and()
+                .httpBasic();
+
+        //TODO: authenticate only certain paths
     }
 }
