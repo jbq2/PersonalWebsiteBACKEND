@@ -37,7 +37,7 @@ public class CourseDao implements DaoInterface<Course> {
     @Override
     public Collection<Course> findAll() {
         String sql =
-                "SELECT * FROM localdb.COURSES " +
+                "SELECT * FROM courses " +
                 "ORDER BY startdate DESC";
         return jdbcTemplate.query(sql, rowMapper);
     }
@@ -45,7 +45,7 @@ public class CourseDao implements DaoInterface<Course> {
     @Override
     public Course findById(Long id) {
         String sql =
-                "SELECT * FROM localdb.COURSES " +
+                "SELECT * FROM courses " +
                 "WHERE id = ?";
         try{
             return jdbcTemplate.queryForObject(sql, rowMapper, id);
@@ -57,7 +57,7 @@ public class CourseDao implements DaoInterface<Course> {
 
     @Override
     public Course save(Course course) {
-        String sql = "INSERT INTO localdb.COURSES (code, title, startdate, enddate)" +
+        String sql = "INSERT INTO courses (code, title, startdate, enddate)" +
                 "VALUES (?, ?, ?, ?)";
         Date startDate = Date.valueOf(course.getStartdate());
         Date endDate = null;
@@ -74,7 +74,7 @@ public class CourseDao implements DaoInterface<Course> {
         );
 
         sql =
-                "SELECT * FROM localdb.COURSES " +
+                "SELECT * FROM courses " +
                 "ORDER BY id DESC " +
                 "LIMIT 1";
 
@@ -83,7 +83,7 @@ public class CourseDao implements DaoInterface<Course> {
 
     @Override
     public Course update(Course course) {
-        String sql = "UPDATE localdb.COURSES " +
+        String sql = "UPDATE courses " +
                 "SET code = ?, title = ?, startdate = ?, enddate = ? " +
                 "WHERE id = ?";
 
@@ -107,7 +107,7 @@ public class CourseDao implements DaoInterface<Course> {
 
     @Override
     public Boolean delete(Long id) {
-        String sql = "DELETE FROM localdb.COURSES " +
+        String sql = "DELETE FROM courses " +
                 "WHERE id = ?";
         int affectedRows = jdbcTemplate.update(sql, id);
 
