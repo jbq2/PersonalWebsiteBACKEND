@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS projects(
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL UNIQUE,
     `description` TEXT NOT NULL,
     `course` VARCHAR(25),
