@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS projects(
 	`id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL UNIQUE,
     `description` TEXT NOT NULL,
-    `course` VARCHAR(25),
+    `course_id` INT,
     `startdate` DATE NOT NULL,
     `enddate` DATE,
     `url` VARCHAR(255),
