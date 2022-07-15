@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
+
 @Configuration
 public class DbConfiguration {
     //TODO issue stated here about driver class name
@@ -20,14 +22,19 @@ public class DbConfiguration {
     String password;
 
     @Bean
+    public DataSource dataSource(){
+        DriverManagerDataSource source = new DriverManagerDataSource();
+        source.setDriverClassName(driverClassName);
+        source.setUrl(url);
+        source.setUsername(username);
+        source.setPassword(password);
+        return source;
+    }
+
+    @Bean
     public JdbcTemplate jdbcTemplate(){
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-
+        DataSource dataSource = dataSource();
         jdbcTemplate.setDataSource(dataSource);
         return jdbcTemplate;
     }
