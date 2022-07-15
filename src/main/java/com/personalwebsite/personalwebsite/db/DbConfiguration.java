@@ -1,6 +1,7 @@
 package com.personalwebsite.personalwebsite.db;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -18,6 +19,7 @@ public class DbConfiguration {
     @Value("${spring.datasource.password}")
     String password;
 
+    @Bean
     public JdbcTemplate jdbcTemplate(){
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
