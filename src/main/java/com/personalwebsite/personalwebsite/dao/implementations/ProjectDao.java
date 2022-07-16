@@ -20,6 +20,7 @@ public class ProjectDao implements DaoInterface<Project> {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    //TODO autowiring causes build issues
 
     RowMapper<Project> rowMapper = ((rs, rowNum) -> {
         Project project = new Project();

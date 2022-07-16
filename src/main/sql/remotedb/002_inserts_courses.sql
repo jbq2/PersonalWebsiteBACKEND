@@ -18,12 +18,3 @@ VALUES ('IS350', 'Computers, Society, and Ethics', '2021-09-05', '2021-12-15');
 
 INSERT INTO courses (code, title, startdate, enddate)
 VALUES ('MATH333', 'Probability and Statistics', '2021-09-05', '2021-12-15');
-
-
-
-
-
-
-
-
-
