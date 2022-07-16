@@ -27,9 +27,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest()
+//                .antMatchers("/projects/list", "/projects/get/*",
+//                        "/courses/list", "/courses/get/*").permitAll()
+//                .anyRequest()
+//                .authenticated()
+                .antMatchers("/admin/**", "/**/save", "/**/delete/*", "/**/update")
                 .authenticated()
                 .and()
                 .httpBasic();
+
+        //TODO: authenticate only certain paths
     }
 }

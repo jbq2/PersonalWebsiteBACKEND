@@ -20,6 +20,7 @@ public class ProjectDao implements DaoInterface<Project> {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    //TODO autowiring causes build issues
 
     RowMapper<Project> rowMapper = ((rs, rowNum) -> {
         Project project = new Project();
@@ -48,7 +49,7 @@ public class ProjectDao implements DaoInterface<Project> {
     @Override
     public Collection<Project> findAll() {
         String sql =
-                "SELECT * FROM localdb.projects " +
+                "SELECT * FROM projects " +
                 "ORDER BY startdate DESC";
         return jdbcTemplate.query(sql, rowMapper);
     }
@@ -56,7 +57,7 @@ public class ProjectDao implements DaoInterface<Project> {
     @Override
     public Project findById(Long id) {
         String sql =
-                "SELECT * FROM localdb.projects " +
+                "SELECT * FROM projects " +
                 "WHERE id = ?";
         try{
             return jdbcTemplate.queryForObject(sql, rowMapper, id);
@@ -69,7 +70,7 @@ public class ProjectDao implements DaoInterface<Project> {
     @Override
     public Project save(Project project) {
         String sql =
-                "INSERT INTO localdb.projects (name, description, course_id, startdate, enddate, url, servedurl) " +
+                "INSERT INTO projects (name, description, course_id, startdate, enddate, url, servedurl) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
         Date startDate = Date.valueOf(project.getStartdate());
         Date endDate = null;
@@ -90,7 +91,7 @@ public class ProjectDao implements DaoInterface<Project> {
             );
 
             sql =
-                    "SELECT * FROM localdb.projects " +
+                    "SELECT * FROM projects " +
                             "ORDER BY id DESC " +
                             "LIMIT 1";
 
@@ -105,7 +106,7 @@ public class ProjectDao implements DaoInterface<Project> {
     @Override
     public Project update(Project project){
         String sql =
-                "UPDATE localdb.projects " +
+                "UPDATE projects " +
                 "SET name = ?, description = ?, course_id = ?, url = ?, startdate = ?, enddate = ?, servedurl = ? " +
                 "WHERE id = ?";
         Date startDate = Date.valueOf(project.getStartdate());
@@ -139,7 +140,7 @@ public class ProjectDao implements DaoInterface<Project> {
     @Override
     public Boolean delete(Long id) {
         String sql =
-                "DELETE FROM localdb.projects " +
+                "DELETE FROM projects " +
                 "WHERE id = ?";
         int affectedRows = jdbcTemplate.update(sql, id);
 

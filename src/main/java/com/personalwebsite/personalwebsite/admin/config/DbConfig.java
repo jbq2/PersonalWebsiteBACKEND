@@ -1,12 +1,17 @@
-package com.personalwebsite.personalwebsite.db;
+package com.personalwebsite.personalwebsite.admin.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
+
 @Configuration
-public class DbConfiguration {
+public class DbConfig {
+    //TODO issue stated here about driver class name
+        //TODO might have to remove this configuration since it might be unnecessary
     @Value("${spring.datasource.driver-class-name}")
     String driverClassName;
     @Value("${spring.datasource.url}")
@@ -16,14 +21,20 @@ public class DbConfiguration {
     @Value("${spring.datasource.password}")
     String password;
 
+    @Bean
+    public DataSource dataSource(){
+        DriverManagerDataSource source = new DriverManagerDataSource();
+        source.setDriverClassName(driverClassName);
+        source.setUrl(url);
+        source.setUsername(username);
+        source.setPassword(password);
+        return source;
+    }
+
+    @Bean
     public JdbcTemplate jdbcTemplate(){
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-
+        DataSource dataSource = dataSource();
         jdbcTemplate.setDataSource(dataSource);
         return jdbcTemplate;
     }
