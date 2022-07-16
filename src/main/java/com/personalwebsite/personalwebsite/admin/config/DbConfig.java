@@ -1,4 +1,4 @@
-package com.personalwebsite.personalwebsite.db;
+package com.personalwebsite.personalwebsite.admin.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-public class DbConfiguration {
+public class DbConfig {
     //TODO issue stated here about driver class name
         //TODO might have to remove this configuration since it might be unnecessary
     @Value("${spring.datasource.driver-class-name}")
