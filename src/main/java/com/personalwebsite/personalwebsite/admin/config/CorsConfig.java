@@ -11,7 +11,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedMethods("*")
-                .allowedOrigins("http://jbq2-portfolio.herokuapp.com", "http://localhost:4200")
+                .allowedOrigins("https://jbq2-portfolio.herokuapp.com", "http://localhost:4200")
                 .allowedHeaders("*")
                 .allowCredentials(false)
                 .maxAge(-1);
