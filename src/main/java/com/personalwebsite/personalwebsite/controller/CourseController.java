@@ -15,7 +15,6 @@ import java.util.Map;
 import static java.time.LocalDateTime.now;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/courses")
 @RequiredArgsConstructor
 public class CourseController {
