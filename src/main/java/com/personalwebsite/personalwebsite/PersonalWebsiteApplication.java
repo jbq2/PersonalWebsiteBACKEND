@@ -25,9 +25,14 @@ public class PersonalWebsiteApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins(
+                registry.addMapping("/**")
+                        .allowedOrigins(
                         "http://localhost:4200",
-                        "http://jbq2-portfolio.herokuapp.com");
+                        "http://jbq2-portfolio.herokuapp.com")
+                        .allowedHeaders("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+                        .maxAge(-1)
+                        .allowCredentials(false);
             }
         };
     }
