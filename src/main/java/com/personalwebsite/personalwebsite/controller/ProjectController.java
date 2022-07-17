@@ -19,6 +19,7 @@ import static java.time.LocalDateTime.now;
 @RestController
 @RequestMapping("/projects")
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"http://localhost:4200", "http://jbq2-portfolio.herokuapp.com"})
 public class ProjectController {
 
     private final ProjectService projectService;

@@ -17,6 +17,7 @@ import static java.time.LocalDateTime.now;
 @RestController
 @RequestMapping("/courses")
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"http://localhost:4200", "http://jbq2-portfolio.herokuapp.com"})
 public class CourseController {
 
     private final CourseService courseService;
