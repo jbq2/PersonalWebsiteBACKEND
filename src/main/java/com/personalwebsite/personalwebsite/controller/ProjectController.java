@@ -17,7 +17,7 @@ import java.util.Map;
 import static java.time.LocalDateTime.now;
 
 @RestController
-@RequestMapping("/projects")
+@RequestMapping("/api/projects")
 @RequiredArgsConstructor
 public class ProjectController {
 

@@ -15,7 +15,7 @@ import java.util.Map;
 import static java.time.LocalDateTime.now;
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/api/courses")
 @RequiredArgsConstructor
 public class CourseController {
 
