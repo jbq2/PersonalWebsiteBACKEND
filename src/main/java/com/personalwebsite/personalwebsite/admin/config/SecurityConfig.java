@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                        "/courses/list", "/courses/get/*").permitAll()
 //                .anyRequest()
 //                .authenticated()
-                .antMatchers("/admin/**", "/**/save", "/**/delete/*", "/**/update")
+                .antMatchers("/api/admin/**", "/**/save", "/**/delete/*", "/**/update")
                 .authenticated()
                 .and()
                 .httpBasic();
